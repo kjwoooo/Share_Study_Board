@@ -84,7 +84,7 @@
                                 class="btn btn-outline-primary lh-1"
                                 data-bs-toggle="modal"
                                 data-bs-target="#editCommentModal"
-                                th:onclick="handleEditCommentButton(event, [[${comment.id}]], [[${comment.content}]]);"
+                                th:onclick="'handleEditCommentButton(event, ' + ${comment.id} + ', \'' + ${comment.content} + '\');'"
                         >
                             <span > 수정 </span>
                         </button>
@@ -92,7 +92,7 @@
                                 class="btn btn-outline-danger lh-1"
                                 data-bs-toggle="modal"
                                 data-bs-target="#deleteCommentModal"
-                                th:onclick="handleDeleteCommentButton(event, [[${comment.id}]]);"
+                                th:onclick="'handleDeleteCommentButton(event, ' + ${comment.id} + ');'"
                         >
                             <span > 삭제 </span>
                         </button>
@@ -145,7 +145,7 @@
                             class="dropdown-item text-danger btn btn-danger d-flex align-items-center gap-2"
                             data-bs-toggle="modal"
                             data-bs-target="#deletePostModal"
-                            th:onclick="handleDeletePostButton(event, [[${post.id}]], [[${post.board.id}]]);"
+                            th:onclick="'handleDeletePostButton(event, ' + ${post.id} + ', ' + ${post.board.id} + ');'"
                     >
                         <span class="material-symbols-outlined"> delete </span>삭제
                     </button>

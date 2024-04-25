@@ -99,7 +99,9 @@
                                     class="btn btn-outline-danger lh-1"
                                     data-bs-toggle="modal"
                                     data-bs-target="#deleteModal"
-                                    th:onclick="handleDeleteButton(event, [[${board.id}]]);"
+                                    th:onclick="'handleDeleteButton(event, \'' + ${board.id} + '\');'"
+
+
                             >
                                 <span> 삭제 </span>
                             </button>
