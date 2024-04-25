@@ -1,7 +1,9 @@
 package com.studyBoard.board.board.domain;
 
+import com.studyBoard.board.audit.BaseEntity;
 import com.studyBoard.board.post.domain.Post;
 import jakarta.persistence.*;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -15,7 +17,7 @@ import java.util.List;
 @Setter
 @NoArgsConstructor
 @Table(name = "board")
-public class Board {
+public class Board extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -25,15 +27,21 @@ public class Board {
     @Column(name = "TITLE", nullable = false)
     private String title;
 
-    @Temporal(TemporalType.TIMESTAMP)
-    @Column(name = "CREATED_AT")
-    private LocalDateTime createdAt;
+    @Column(name = "DESCRIPTION", nullable = false)
+    private String description;
 
     /**
      * Post와 일대다 관계 <p>
      * board 와 매핑
      */
-    @OneToMany(mappedBy = "board")
+    @OneToMany(mappedBy = "board", cascade = CascadeType.ALL)
     private List<Post> posts = new ArrayList<>();
+
+    @Builder
+    public Board( String title, String description, List<Post> posts ){
+        this.title = title;
+        this.description= description;
+        this.posts = posts;
+    }
 
 }

@@ -1,19 +1,18 @@
 package com.studyBoard.board.comment.domain;
 
+import com.studyBoard.board.audit.BaseEntity;
 import com.studyBoard.board.post.domain.Post;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.time.LocalDateTime;
-
 @Entity
 @Getter
 @Setter
 @NoArgsConstructor
 @Table(name = "comment")
-public class Comment {
+public class Comment extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -22,11 +21,6 @@ public class Comment {
 
     @Column(name = "CONTENT")
     private String content;
-
-    @Temporal(TemporalType.TIMESTAMP)
-    @Column(name = "CREATED_AT")
-    private LocalDateTime createdAt;
-
 
     /**
      * Post와 다대일 단방향 관계

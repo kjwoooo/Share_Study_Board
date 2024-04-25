@@ -1,5 +1,6 @@
 package com.studyBoard.board.post.domain;
 
+import com.studyBoard.board.audit.BaseEntity;
 import com.studyBoard.board.board.domain.Board;
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -9,11 +10,10 @@ import lombok.Setter;
 import java.time.LocalDateTime;
 
 @Entity
-@Getter
-@Setter
+@Getter @Setter
 @NoArgsConstructor
 @Table(name = "post")
-public class Post {
+public class Post extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -25,10 +25,6 @@ public class Post {
 
     @Column(name = "CONTENT", nullable = false)
     private String content;
-
-    @Temporal(TemporalType.TIMESTAMP)
-    @Column(name = "CREATED_AT")
-    private LocalDateTime createdAt;
 
     /**
      * Board와 다대일 관계 <p>

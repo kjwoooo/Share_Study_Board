@@ -30,12 +30,12 @@
   </div>
   <form th:action="@{/posts/create(boardId=${boardId})}" method="post">
     <div class="mb-3">
-      <label for="title">게시글 제목</label>
+      <label for="name">게시글 제목</label>
       <input
               type="text"
               class="form-control"
-              id="title"
-              name="title"
+              id="name"
+              name="name"
               maxlength="30"
               placeholder="게시글 제목 입력 (최대 30자)"
               required
