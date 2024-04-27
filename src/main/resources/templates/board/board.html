@@ -55,11 +55,6 @@
             >게시글 생성일</small
             >
         </a>
-        <span
-                th:if="${postPage.isEmpty()}"
-                class="text-center"
-                th:text="${keyword != null ? '`' + keyword + '` 키워드에 해당하는 게시글이 없습니다.' : '올라온 게시글이 없습니다.'}"
-        ></span>
     </div>
     <div class="w-100 d-flex justify-content-center">
         <ul class="pagination">

@@ -2,10 +2,13 @@ package com.studyBoard.board.post;
 
 import com.studyBoard.board.board.domain.Board;
 import com.studyBoard.board.board.repository.JdbcBoardRepository;
+import com.studyBoard.board.board.service.BoardService;
 import com.studyBoard.board.post.domain.Post;
 import com.studyBoard.board.post.domain.PostDTO;
 import com.studyBoard.board.post.repository.PostRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -15,10 +18,12 @@ public class PostService {
     @Autowired
     private final PostRepository postRepository;
     private final JdbcBoardRepository jdbcBoardRepository;
+    private final BoardService boardService;
 
-    public PostService(PostRepository postRepository, JdbcBoardRepository jdbcBoardRepository) {
+    public PostService(PostRepository postRepository, JdbcBoardRepository jdbcBoardRepository, BoardService boardService) {
         this.postRepository = postRepository;
         this.jdbcBoardRepository = jdbcBoardRepository;
+        this.boardService = boardService;
     }
 
     /**
@@ -36,10 +41,10 @@ public class PostService {
     }
 
     /**
-     * find Post by boardId
+     * find Post by boardId | 페이지네이션
      */
-    public List<Post> getPostsByBoardId(Long boardId) {
-        List<Post> posts = postRepository.findByBoardId(boardId);
+    public Page<Post> getPostsByBoardId(Long boardId, Pageable pageable) {
+        Page<Post> posts = postRepository.findByBoardId(boardId, pageable);
         return posts;
     }
 
@@ -50,7 +55,8 @@ public class PostService {
         Post post = new Post();
         post.setName(postDTO.getName());
         post.setContent(postDTO.getContent());
-        post.setBoard(jdbcBoardRepository.findById(boardId).orElse(null));
+//        post.setBoard(jdbcBoardRepository.findById(boardId).orElse(null));
+        post.setBoard(boardService.getBoardById(boardId));
 
         postRepository.save(post);
     }
@@ -58,8 +64,9 @@ public class PostService {
      * Create Post2 with BoardId
      */
     public void createPostWithBoardId2(PostDTO postDTO) {
-        Board board = jdbcBoardRepository.findById(postDTO.getId()).orElse(null);
-            Post post = new Post(postDTO.getName(), postDTO.getContent());
+//        Board board = jdbcBoardRepository.findById(postDTO.getId()).orElse(null);
+        Board board =boardService.getBoardById(postDTO.getId());
+                Post post = new Post(postDTO.getName(), postDTO.getContent());
             post.setBoard(board);
             postRepository.save(post);
     }

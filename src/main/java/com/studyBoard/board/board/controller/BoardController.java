@@ -5,6 +5,9 @@ import com.studyBoard.board.board.domain.BoardDTO;
 import com.studyBoard.board.board.service.BoardService;
 import com.studyBoard.board.post.PostService;
 import com.studyBoard.board.post.domain.Post;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -47,12 +50,16 @@ public class BoardController {
      * 게시글이 있는 특정 게시판을 보여줌 | post 가 만들어지지 않아서 오류
      * */
     @GetMapping("boards/{boardId}")
-    public String showBoardDetails(@PathVariable Long boardId, Model model) {
-        List<Post> posts =  postService.getPostsByBoardId(boardId);
+    public String showBoardDetails(@PathVariable Long boardId,
+                                   @RequestParam(defaultValue = "0") int page,
+                                   @RequestParam(defaultValue = "10") int size,
+                                   Model model) {
+        Pageable pageable = PageRequest.of(page, size);
+        Page<Post> postPage =  postService.getPostsByBoardId(boardId, pageable);
         Board board = boardService.getBoardById(boardId);
-        model.addAttribute("posts", posts);
+        model.addAttribute("postPage", postPage);
         model.addAttribute("board", board);
-        return "board/board"; // post의 페이지네이션 작업해야함
+        return "board/board"; //
     }
 
     /**
@@ -76,7 +83,7 @@ public class BoardController {
     /**
      * 게시판 수정 동작
      * */
-    @PutMapping("boards/{id}/edit")
+    @PostMapping ("boards/{id}/edit")
     public String editBoard(@PathVariable Long id, @ModelAttribute("board") BoardDTO boardDTO) {
         boardService.updateBoard(id, boardDTO.getTitle(), boardDTO.getDescription());
         return "redirect:/boards/boards";
@@ -86,11 +93,10 @@ public class BoardController {
     /**
      * 특정 게시판 삭제 | post가 null인 오류
      * */
-    @DeleteMapping("boards/{id}")
-    public void deleteBoard(@PathVariable Long id) {
+    @DeleteMapping("/boards/{id}/delete")
+    public String deleteBoard(@PathVariable Long id) {
         boardService.deleteBoard(id);
-
+        return "redirect:/boards/boards";
     }
-
 
 }

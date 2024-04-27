@@ -139,7 +139,7 @@
                 ></button>
             </div>
             <div class="modal-body">
-                <p class="fw-light">게시판에 포함된 모든 게시글이 삭제됩니다.</p>
+                <p class="fw-light" style="color: black;">게시판에 포함된 모든 게시글이 삭제됩니다.</p>
             </div>
             <div class="modal-footer">
                 <button
@@ -164,15 +164,15 @@
 <script th:inline="javascript">
     let currentBoard;
 
-    function handleDeleteButton(e, boardId) {
+    function handleDeleteButton(e, id) {
         e.preventDefault();
-        currentBoard = boardId;
+        currentBoard = id;
     }
 
     function handleDeleteModalButton() {
         fetch(`/boards/${currentBoard}/delete`, {
             method: "DELETE",
-        }).then(() => (window.location.href = "/boards"));
+        }).then(() => (window.location.href = "/boards/boards"));
     }
 </script>
 
