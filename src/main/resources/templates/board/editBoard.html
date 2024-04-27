@@ -33,16 +33,16 @@
             method="post"
     >
         <div class="mb-3">
-            <label for="name">게시판 이름</label>
+            <label for="title">게시판 이름</label>
             <input
                     type="text"
                     class="form-control"
-                    id="name"
-                    name="name"
+                    id="title"
+                    name="title"
                     maxlength="20"
                     placeholder="게시판 이름 입력 (최대 20자)"
                     required
-                    th:value="${board.name}"
+                    th:value="${board.title}"
             />
         </div>
         <div class="mb-3">
