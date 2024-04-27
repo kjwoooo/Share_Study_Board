@@ -3,10 +3,7 @@ package com.studyBoard.board.board.domain;
 import com.studyBoard.board.audit.BaseEntity;
 import com.studyBoard.board.post.domain.Post;
 import jakarta.persistence.*;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -15,19 +12,20 @@ import java.util.List;
 @Entity
 @Getter
 @Setter
+@AllArgsConstructor
 @NoArgsConstructor
 @Table(name = "board")
 public class Board extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "BOARD_Id")
+    @Column(name = "id")
     private Long id;
 
-    @Column(name = "TITLE", nullable = false)
+    @Column(nullable = false)
     private String title;
 
-    @Column(name = "DESCRIPTION", nullable = false)
+    @Column(nullable = false)
     private String description;
 
     /**
@@ -38,9 +36,9 @@ public class Board extends BaseEntity {
     private List<Post> posts = new ArrayList<>();
 
     @Builder
-    public Board( String title, String description, List<Post> posts ){
+    public Board(String title, String description, List<Post> posts) {
         this.title = title;
-        this.description= description;
+        this.description = description;
         this.posts = posts;
     }
 
