@@ -10,20 +10,20 @@ import lombok.Setter;
 import java.time.LocalDateTime;
 
 @Entity
-@Getter @Setter
+@Getter
+@Setter
 @NoArgsConstructor
 @Table(name = "post")
 public class Post extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "POST_ID")
     private Long id;
 
-    @Column(name = "NAME", nullable = false)
+    @Column(nullable = false)
     private String name;
 
-    @Column(name = "CONTENT", nullable = false)
+    @Column(nullable = false)
     private String content;
 
     /**
@@ -31,7 +31,7 @@ public class Post extends BaseEntity {
      * BOARD_ID 와 매핑
      */
     @ManyToOne
-    @JoinColumn(name = "BOARD_ID")
+    @JoinColumn(name = "board_id")
     private Board board;
 
 
@@ -42,6 +42,12 @@ public class Post extends BaseEntity {
     public Post(String name, String content) {
         this.name = name;
         this.content = content;
+    }
+
+    public Post(String name, String content, Long boardId) {
+        this.name = name;
+        this.content = content;
+        this.board.setId(boardId);
     }
 
 
