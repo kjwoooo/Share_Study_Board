@@ -50,7 +50,7 @@
                 th:each="post : ${postPage}"
                 th:href="@{/posts/{postId}(postId=${post.id})}"
         >
-            <h4 class="fw-bold mb-1" th:text="${post.title}">게시글 제목</h4>
+            <h4 class="fw-bold mb-1" th:text="${post.name}">게시글 제목</h4>
             <small class="text-secondary" th:text="${post.createdAt}"
             >게시글 생성일</small
             >

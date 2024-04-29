@@ -74,18 +74,18 @@ public class BoardController {
     /**
      * 게시판 수정 폼 보여주기
      * */
-    @GetMapping("boards/{id}/edit")
-    public String showEditBoardForm(@PathVariable Long id, Model model) {
-        Board board = boardService.getBoardById(id);
+    @GetMapping("boards/{boardId}/edit")
+    public String showEditBoardForm(@PathVariable Long boardId, Model model) {
+        Board board = boardService.getBoardById(boardId);
         model.addAttribute("board", board);
         return "board/editBoard";
     }
     /**
      * 게시판 수정 동작
      * */
-    @PostMapping ("boards/{id}/edit")
-    public String editBoard(@PathVariable Long id, @ModelAttribute("board") BoardDTO boardDTO) {
-        boardService.updateBoard(id, boardDTO.getTitle(), boardDTO.getDescription());
+    @PostMapping ("boards/{boardId}/edit")
+    public String editBoard(@PathVariable Long boardId, @ModelAttribute("board") BoardDTO boardDTO) {
+        boardService.updateBoard(boardId, boardDTO.getTitle(), boardDTO.getDescription());
         return "redirect:/boards/boards";
     }
 
@@ -93,9 +93,9 @@ public class BoardController {
     /**
      * 특정 게시판 삭제 | post가 null인 오류
      * */
-    @DeleteMapping("/boards/{id}/delete")
-    public String deleteBoard(@PathVariable Long id) {
-        boardService.deleteBoard(id);
+    @DeleteMapping("/boards/{boardId}/delete")
+    public String deleteBoard(@PathVariable Long boardId) {
+        boardService.deleteBoard(boardId);
         return "redirect:/boards/boards";
     }
 

@@ -55,7 +55,6 @@ public class PostService {
         Post post = new Post();
         post.setName(postDTO.getName());
         post.setContent(postDTO.getContent());
-//        post.setBoard(jdbcBoardRepository.findById(boardId).orElse(null));
         post.setBoard(boardService.getBoardById(boardId));
 
         postRepository.save(post);
@@ -63,13 +62,23 @@ public class PostService {
     /**
      * Create Post2 with BoardId
      */
-    public void createPostWithBoardId2(PostDTO postDTO) {
-//        Board board = jdbcBoardRepository.findById(postDTO.getId()).orElse(null);
-        Board board =boardService.getBoardById(postDTO.getId());
-                Post post = new Post(postDTO.getName(), postDTO.getContent());
-            post.setBoard(board);
-            postRepository.save(post);
-    }
+//    public void createPostWithBoardId2(PostDTO postDTO) {
+//        Board board =boardService.getBoardById(postDTO.getId());
+//                Post post = new Post(postDTO.getName(), postDTO.getContent());
+//            post.setBoard(board);
+//            postRepository.save(post);
+//    }
+//    public void createPostWithBoardId3(PostDTO postDTO, Long boardId) {
+//        Board board = new Board();  // 새로운 게시판 생성
+//        board.setId(boardId);       // URL에서 받은 파라미터 값으로 게시판 ID 설정
+//        Post post = new Post();
+//        post.setName(postDTO.getName());
+//        post.setContent(postDTO.getContent());
+//        post.setBoard(board);
+//
+//        postRepository.save(post);
+//    }
+
 
     /**
      * Create Post
@@ -88,12 +97,13 @@ public class PostService {
      */
     public void updatePost(PostDTO postDTO) {
         Post post = postRepository.findById(postDTO.getId()).orElse(null);
-        Post newPost = new Post();
-        post.setName(postDTO.getName());
-        post.setContent(postDTO.getContent());
-
-        postRepository.save(newPost);
+        if (post != null) {
+            post.setName(postDTO.getName());
+            post.setContent(postDTO.getContent());
+            postRepository.save(post);
+        }
     }
+
 
 
     /**

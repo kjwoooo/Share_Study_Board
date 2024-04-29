@@ -3,6 +3,8 @@ package com.studyBoard.board.board.service;
 import com.studyBoard.board.board.domain.Board;
 import com.studyBoard.board.board.repository.JdbcBoardRepository;
 import com.studyBoard.board.board.repository.JpaBoardRepository;
+import com.studyBoard.board.post.domain.Post;
+import com.studyBoard.board.post.repository.PostRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -13,11 +15,14 @@ import java.util.Optional;
 public class BoardService {
     private final JdbcBoardRepository jdbcBoardRepository;
     private final JpaBoardRepository jpaBoardRepository;
+    private final PostRepository postRepository;
+
 
     @Autowired
-    public BoardService(JdbcBoardRepository jdbcBoardRepository, JpaBoardRepository jpaBoardRepository) {
+    public BoardService(JdbcBoardRepository jdbcBoardRepository, JpaBoardRepository jpaBoardRepository, PostRepository postRepository) {
         this.jdbcBoardRepository = jdbcBoardRepository;
         this.jpaBoardRepository = jpaBoardRepository;
+        this.postRepository = postRepository;
     }
 
     /**
@@ -61,7 +66,12 @@ public class BoardService {
     /**
      * Delete Board
      */
-    public void deleteBoard(Long id) {
-        jdbcBoardRepository.deleteById(id);
+    public void deleteBoard(Long boardId) {
+        List<Post> posts = postRepository.findByBoardId(boardId);
+
+        // 게시물 삭제
+        postRepository.deleteAll(posts);
+
+        jdbcBoardRepository.deleteById(boardId);
     }
 }
