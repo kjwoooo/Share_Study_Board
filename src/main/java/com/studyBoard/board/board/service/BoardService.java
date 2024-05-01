@@ -33,7 +33,6 @@ public class BoardService {
                 .title(title)
                 .description(description)
                 .build();
-//        jdbcBoardRepository.save(board);
         jpaBoardRepository.save(board);
     }
 

@@ -93,7 +93,7 @@ public class BoardController {
     /**
      * 특정 게시판 삭제 | post가 null인 오류
      * */
-    @DeleteMapping("/boards/{boardId}/delete")
+    @DeleteMapping("boards/{boardId}/delete")
     public String deleteBoard(@PathVariable Long boardId) {
         boardService.deleteBoard(boardId);
         return "redirect:/boards/boards";
