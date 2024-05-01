@@ -80,20 +80,19 @@
                             role="group"
                             aria-label="edit-delete"
                     >
-                        <button
-                                class="btn btn-outline-primary lh-1"
+                        <!-- 수정 버튼에 Thymeleaf 속성 추가 -->
+                        <button class="btn btn-outline-primary lh-1"
                                 data-bs-toggle="modal"
                                 data-bs-target="#editCommentModal"
-                                th:onclick="'handleEditCommentButton(event, ' + ${comment.id} + ', \'' + ${comment.content} + '\');'"
-                        >
-                            <span > 수정 </span>
+                                th:onclick="handleEditCommentButton(event, [[${comment.id}]], [[${comment.content}]]);">
+                            <span>수정</span>
+                        </button>
                         </button>
                         <button
                                 class="btn btn-outline-danger lh-1"
                                 data-bs-toggle="modal"
                                 data-bs-target="#deleteCommentModal"
-                                th:onclick="'handleDeleteCommentButton(event, ' + ${comment.id} + ');'"
-                        >
+                                th:onclick="handleDeleteCommentButton(event, [[${comment.id}]]);"
                             <span > 삭제 </span>
                         </button>
                     </div>
@@ -145,6 +144,7 @@
                             class="dropdown-item text-danger btn btn-danger d-flex align-items-center gap-2"
                             data-bs-toggle="modal"
                             data-bs-target="#deletePostModal"
+                            th:onclick="'setCurrentPostAndBoard(\'' + ${post.id} + '\', \'' + ${post.board.id} + '\');'"
                     >
                         <span class="material-symbols-outlined"> delete </span>삭제
                     </button>
@@ -175,7 +175,7 @@
                 ></button>
             </div>
             <div class="modal-body">
-                <p class="fw-light">게시글과 댓글이 삭제됩니다.</p>
+                <p class="fw-light" style="color: black">게시글과 댓글이 삭제됩니다.</p>
             </div>
             <div class="modal-footer">
                 <button
@@ -207,7 +207,7 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h1 class="modal-title fs-5" id="editCommentModalLabel">
+                <h1 class="modal-title fs-5" style="color: black" id="editCommentModalLabel">
                     댓글 수정하기
                 </h1>
                 <button
@@ -251,7 +251,7 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h1 class="modal-title fs-5" id="deleteCommentModalLabel">
+                <h1 class="modal-title fs-5" style="color: black" id="deleteCommentModalLabel">
                     댓글을 삭제하시겠습니까?
                 </h1>
                 <button
@@ -262,7 +262,7 @@
                 ></button>
             </div>
             <div class="modal-body">
-                <p class="fw-light">해당 댓글이 삭제됩니다.</p>
+                <p class="fw-light" style="color: black">해당 댓글이 삭제됩니다.</p>
             </div>
             <div class="modal-footer">
                 <button
@@ -315,20 +315,26 @@
     function handleDeleteCommentModalButton() {
         fetch(`/comments/${currentComment}`, {
             method: "DELETE",
-        }).then(() => elementToDelete.remove());
-
-        const commentsCount = document.getElementById("commentsCount");
-        commentsCount.innerText = parseInt(commentsCount.innerText) - 1;
+        }).then(() => {
+            elementToDelete.remove();
+            const commentsCount = document.getElementById("commentsCount");
+            commentsCount.innerText = parseInt(commentsCount.innerText) - 1;
+        });
 
         const modal = bootstrap.Modal.getInstance("#deleteCommentModal");
         modal.hide();
     }
 
     function handleEditCommentButton(_, commentId, content) {
-        document.getElementById("commentContentTextarea").innerText = content;
+        document.getElementById("commentContentTextarea").value = content;
         document
             .getElementById("commentEditForm")
             .setAttribute("action", `/comments/${commentId}/edit`);
+    }
+
+    function setCurrentPostAndBoard(postId, boardId) {
+        currentPost = postId;
+        currentBoard = boardId;
     }
 </script>
 </body>
