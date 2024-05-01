@@ -19,7 +19,6 @@ public class Comment extends BaseEntity {
     @Column(name = "COMMENT_ID")
     private Long id;
 
-    @Column(name = "CONTENT")
     private String content;
 
     /**
