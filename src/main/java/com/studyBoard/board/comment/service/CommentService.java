@@ -27,13 +27,6 @@ public class CommentService {
         return commentRepository.findById(id).orElse(null);
     }
 
-    /**
-     * get Comment All
-     * */
-    public List<Comment> getCommnetAll() {
-        return commentRepository.findAll();
-    }
-
 
     /**
      * get Comments By PostId
@@ -58,24 +51,13 @@ public class CommentService {
     /**
      * update Comment
      * */
-//    public void updateComment(Long commentId, CommentDTO commentDTO) {
-//        Optional<Comment> optionalComment = commentRepository.findById(commentId);
-//        if (optionalComment.isPresent()) {
-//            Comment comment = optionalComment.get();
-//            comment.setContent(commentDTO.getContent());
-//            commentRepository.save(comment);
-//        }
-//    }
-
-    public void updateComment1(Long commentId, String newComment) {
+    public void updateComment(Long commentId, String newComment) {
         Comment comment = commentRepository.findById(commentId).orElse(null);
         if (comment != null) {
             comment.setContent(newComment);
             commentRepository.save(comment);
         }
     }
-
-
 
 
     /**
@@ -86,6 +68,10 @@ public class CommentService {
         commentRepository.deleteById(commentId);
     }
 
+
+    /**
+     * get PostId By CommentId
+     * */
     public Long getPostIdByCommentId(Long commentId) {
         Optional<Comment> optionalComment = commentRepository.findById(commentId);
         if (optionalComment.isPresent()) {

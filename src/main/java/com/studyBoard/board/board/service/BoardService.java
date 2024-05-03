@@ -67,8 +67,6 @@ public class BoardService {
      */
     public void deleteBoard(Long boardId) {
         List<Post> posts = postRepository.findByBoardId(boardId);
-
-        // 게시물 삭제
         postRepository.deleteAll(posts);
 
         jdbcBoardRepository.deleteById(boardId);

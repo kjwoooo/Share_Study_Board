@@ -21,5 +21,8 @@ public interface PostRepository extends JpaRepository<Post, Long> {
     Page<Post> findByBoardId(Long boardId, Pageable pageable);
 
     List<Post> findByBoardId(Long id);
+    Page<Post> findByBoardIdOrderByCreatedAtDesc(Long boardId, Pageable pageable);
+
+
 
 }

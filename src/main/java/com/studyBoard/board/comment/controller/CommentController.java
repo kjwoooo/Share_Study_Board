@@ -3,12 +3,11 @@ package com.studyBoard.board.comment.controller;
 import com.studyBoard.board.comment.domain.CommentDTO;
 import com.studyBoard.board.comment.service.CommentService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 @Controller
+@RequestMapping("/comments")
 public class CommentController {
     private final CommentService commentService;
 
@@ -20,26 +19,34 @@ public class CommentController {
 
 
     /**
-     * 특정 게시물에서 댓글 생성하기
+     * 특정 게시물에서 댓글 생성
      * */
-    @PostMapping("/comments")
-    public String addComment(@RequestParam Long postId, @RequestParam String content) {
+    @PostMapping("")
+    public String createComment(@RequestParam Long postId, @RequestParam String content) {
         CommentDTO commentDTO = new CommentDTO();
         commentDTO.setContent(content);
         commentService.createCommentWithPostId(commentDTO, postId);
         return "redirect:/posts/" + postId;
     }
 
-    @PostMapping("/comments/{commentId}/edit")
+    /**
+     * 특정 댓글 수정
+     * */
+    @PostMapping("/{commentId}/edit")
     public String editComment(@PathVariable Long commentId, @RequestParam String content) {
-        commentService.updateComment1(commentId, content);
-        return "redirect:/posts/" + commentService.getCommentById(commentId).getPost().getId();
+        commentService.updateComment(commentId, content);
+        Long postId  = commentService.getPostIdByCommentId(commentId);
+        return "redirect:/posts/" + postId;
     }
 
-   @DeleteMapping("/comments/{commentId}")
+    /**
+     * 특정 댓글 삭제
+     * */
+   @DeleteMapping("/{commentId}")
         public String deleteComment(@PathVariable Long commentId) {
+            Long postId = commentService.getPostIdByCommentId(commentId);
             commentService.deleteComment(commentId);
-            return "redirect:/posts/" + commentService.getCommentById(commentId).getPost().getId();
+            return "redirect:/posts/" + postId;
         }
 
 
