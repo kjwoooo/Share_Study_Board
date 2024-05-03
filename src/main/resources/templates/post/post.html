@@ -45,7 +45,7 @@
             class="link link-offset-1 link-offset-2-hover text-sm fs-6 mb-2 d-block"
             style="transition: all 0.1s ease-in-out"
             th:href="@{/boards/{boardId}(boardId=${post.board.id})}"
-    >&larr; 게시판으로 돌아가기</a
+    >&larr;게시글 목록</a
     >
     <div class="container border rounded p-4 position-relative">
         <div class="header mb-3">
@@ -73,7 +73,7 @@
             >
                 <div class="card-body position-relative">
                     <p class="mb-2" th:text="${comment.content}">댓글 내용</p>
-                    <small class="text-secondary">2024-01-04T13:21:21</small>
+                    <small class="text-secondary" th:text="${comment.createdAt}">날짜</small>
 
                     <div
                             class="position-absolute end-0 top-50 translate-middle-y mb-3 me-3 btn-group bg-white bg-opacity-75"

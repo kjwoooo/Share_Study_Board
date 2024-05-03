@@ -26,11 +26,11 @@
 <body>
 <div class="container my-5">
   <div class="header mb-5">
-    <h1 class="text-center">게시글 추가</h1>
+    <h1 class="text-center" style="font-size: 30px" >학습하고 공유할 주제를 자유롭게 만들어 이야기 나눠보세요!</h1>
   </div>
   <form th:action="@{/posts/create(boardId=${boardId})}" method="post">
     <div class="mb-3">
-      <label for="name">게시글 제목</label>
+      <label for="name">제목</label>
       <input
               type="text"
               class="form-control"
@@ -42,7 +42,7 @@
       />
     </div>
     <div class="mb-3">
-      <label for="content">내용</label>
+      <label for="content">제목에 대한 간단한 설명을 기입해주세요!</label>
       <textarea
               class="form-control"
               id="content"

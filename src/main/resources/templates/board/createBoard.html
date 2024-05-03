@@ -26,32 +26,32 @@
 <body>
 <div class="container my-5">
     <div class="header mb-5">
-        <h1 class="text-center">게시판 추가</h1>
+        <h1 class="text-center">학습주제 추가</h1>
     </div>
     <form th:action="@{/boards/create}" method="post">
         <div class="mb-3">
-            <label for="title">게시판 이름</label>
+            <label for="title" style="font-size: 14px">학습하고 공유하고자 하는 주제를 선정해 주세요!</label>
             <input
                     type="text"
                     class="form-control"
                     id="title"
                     name="title"
                     maxlength="20"
-                    placeholder="게시판 이름 입력 (최대 20자)"
+                    placeholder="학습 주제 입력 (최대 20자)"
                     required
             />
         </div>
         <div class="mb-3">
-            <label for="description">게시판 설명</label>
+            <label for="description" style="font-size: 14px">간단한 설명을 기입해 주세요!</label>
             <textarea
                     class="form-control"
                     id="description"
                     name="description"
                     maxlength="200"
-                    placeholder="게시판 설명 입력 (최대 200자)"
+                    placeholder="설명 입력 (최대 200자)"
             ></textarea>
         </div>
-        <button type="submit" class="btn btn-primary">게시판 추가</button>
+        <button type="submit" class="btn btn-primary">추가하기</button>
         <button
                 type="button"
                 class="btn btn-secondary"

@@ -26,37 +26,37 @@
 <body>
 <div class="container my-5">
     <div class="header mb-5">
-        <h1 class="text-center">게시판 수정</h1>
+        <h1 class="text-center">학습주제 수정</h1>
     </div>
     <form
             th:action="@{/boards/{boardId}/edit(boardId=${board.id})}"
             method="post"
     >
         <div class="mb-3">
-            <label for="title">게시판 이름</label>
+            <label for="title">수정할 주제명을 기입해 주세요!</label>
             <input
                     type="text"
                     class="form-control"
                     id="title"
                     name="title"
                     maxlength="20"
-                    placeholder="게시판 이름 입력 (최대 20자)"
+                    placeholder="주제 입력 (최대 20자)"
                     required
                     th:value="${board.title}"
             />
         </div>
         <div class="mb-3">
-            <label for="description">게시판 설명</label>
+            <label for="description">수정할 주제설명을 입력해 주세요!</label>
             <textarea
                     class="form-control"
                     id="description"
                     name="description"
                     maxlength="200"
-                    placeholder="게시판 설명 입력 (최대 200자)"
+                    placeholder="주제 설명 입력 (최대 200자)"
                     th:text="${board.description}"
             ></textarea>
         </div>
-        <button type="submit" class="btn btn-primary">게시판 수정</button>
+        <button type="submit" class="btn btn-primary">수정하기</button>
         <button
                 type="button"
                 class="btn btn-secondary"
