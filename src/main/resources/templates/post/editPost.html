@@ -33,20 +33,20 @@
             method="post"
     >
         <div class="mb-3">
-            <label for="name">게시글 제목</label>
+            <label for="name">제목</label>
             <input
                     type="text"
                     class="form-control"
                     id="name"
                     name="name"
                     maxlength="30"
-                    placeholder="게시글 제목 입력 (최대 30자)"
+                    placeholder="수정할 제목 입력 (최대 30자)"
                     required
                     th:value="${post.name}"
             />
         </div>
         <div class="mb-3">
-            <label for="content">내용</label>
+            <label for="content">수정할 내용을 입력해주세요!</label>
             <textarea
                     class="form-control"
                     id="content"
